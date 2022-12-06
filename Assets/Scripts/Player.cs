@@ -23,7 +23,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+       weapon = transform.GetComponentInChildren<PrimaryWeapon>(); 
     }
 
     // Update is called once per frame
