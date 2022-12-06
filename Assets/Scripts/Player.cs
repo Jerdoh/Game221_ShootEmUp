@@ -24,6 +24,10 @@ public class Player : MonoBehaviour
     void Start()
     {
        weapons = transform.GetComponentsInChildren<PrimaryWeapon>(); 
+       foreach (PrimaryWeapon weapon in weapons)
+       {
+          weapon.isActive = true;
+       }
     }
 
     // Update is called once per frame

@@ -7,6 +7,7 @@ public class PrimaryWeapon : MonoBehaviour
     public Projectile projectile;
     Vector2 direction;
 
+    public bool isActive = false;
     public bool autoShoot = false;
     public float shootIntervalSeconds = 0.5f;
     public float shootDelaySeconds = 0.0f;
@@ -22,6 +23,11 @@ public class PrimaryWeapon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!isActive)
+        {
+            return;
+        }
+
         direction = (transform.localRotation * Vector2.right).normalized;
 
         if (autoShoot)

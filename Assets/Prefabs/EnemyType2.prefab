@@ -45,9 +45,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectile: {fileID: 8458218392258380123, guid: 5fd685268f26647bfb3669595b41af18, type: 3}
+  isActive: 0
   autoShoot: 1
-  shootIntervalSeconds: 0.5
-  shootDelaySeconds: 1.5
+  shootIntervalSeconds: 1.5
+  shootDelaySeconds: 0
 --- !u!1 &8013617360664381432
 GameObject:
   m_ObjectHideFlags: 0
@@ -240,4 +241,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aca5b3b4793da4c1cba92200ae892f96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 2
+  moveSpeed: 2.5

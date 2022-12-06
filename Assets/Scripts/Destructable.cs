@@ -17,6 +17,11 @@ public class Destructable : MonoBehaviour
         if (transform.position.x < 17.0f)
         {
             onScreen = true;
+            PrimaryWeapon[] weapons = transform.GetComponentsInChildren<PrimaryWeapon>();
+            foreach (PrimaryWeapon weapon in weapons)
+            {
+                weapon.isActive = true;
+            }
         }
     }
 
