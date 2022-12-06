@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    PrimaryWeapon weapon;
+    PrimaryWeapon[] weapons;
 
     float moveSpeed = 3;
     float boostSpeed = 3;
@@ -23,7 +23,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       weapon = transform.GetComponentInChildren<PrimaryWeapon>(); 
+       weapons = transform.GetComponentsInChildren<PrimaryWeapon>(); 
     }
 
     // Update is called once per frame
@@ -34,12 +34,15 @@ public class Player : MonoBehaviour
         moveLeft = Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A);
         moveRight = Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D);
         speedBoost = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
-        shoot = Input.GetKey(KeyCode.Space);
+        shoot = Input.GetKeyDown(KeyCode.Space);
 
         if (shoot)
         {
             shoot = false;
-            weapon.Shoot();
+            foreach (PrimaryWeapon weapon in weapons)
+            {
+                weapon.Shoot();
+            }
         }       
     }
 
