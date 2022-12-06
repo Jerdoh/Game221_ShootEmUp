@@ -110,4 +110,23 @@ public class Player : MonoBehaviour
 
         transform.position = pos;
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Projectile projectile = collision.GetComponent<Projectile>();
+
+        if (projectile != null && projectile.isEnemy)
+        {
+            Destroy(gameObject);
+            Destroy(projectile.gameObject);
+        }
+
+        Destructable destructable = collision.GetComponent<Destructable>();
+
+        if (destructable != null)
+        {
+            Destroy(gameObject);
+            Destroy(destructable.gameObject);
+        }
+    }
 }

@@ -8,6 +8,8 @@ public class Projectile : MonoBehaviour
     public Vector2 velocity;
     public float speed = 2;
 
+    public bool isEnemy = false;
+
     // Start is called before the first frame update
     void Start()
     {

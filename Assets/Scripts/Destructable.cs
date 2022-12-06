@@ -29,7 +29,7 @@ public class Destructable : MonoBehaviour
 
         Projectile projectile = collision.GetComponent<Projectile>();
 
-        if (projectile != null)
+        if (projectile != null && !projectile.isEnemy)
         {
             Destroy(gameObject);
             Destroy(projectile.gameObject);
