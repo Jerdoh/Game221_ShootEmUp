@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PrimaryWeapon : MonoBehaviour
 {
+    public int powerUpLevelRequirement = 0;
+    
     public Projectile projectile;
     Vector2 direction;
 

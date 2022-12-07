@@ -20,13 +20,22 @@ public class Player : MonoBehaviour
     bool speedBoost;
     bool shoot;
 
+    GameObject shield;
+    int powerUpPrimaryWeaponLevel = 0;
+
     // Start is called before the first frame update
     void Start()
     {
+        shield = transform.Find("Shield").gameObject;
+        DeactivateShield();
        weapons = transform.GetComponentsInChildren<PrimaryWeapon>(); 
        foreach (PrimaryWeapon weapon in weapons)
        {
           weapon.isActive = true;
+          if (weapon.powerUpLevelRequirement != powerUpPrimaryWeaponLevel)
+          {
+            weapon.gameObject.SetActive(false);
+          }
        }
     }
 
@@ -45,7 +54,10 @@ public class Player : MonoBehaviour
             shoot = false;
             foreach (PrimaryWeapon weapon in weapons)
             {
-                weapon.Shoot();
+                if (weapon.gameObject.activeSelf)
+                {
+                    weapon.Shoot();
+                }
             }
         }       
     }
@@ -115,13 +127,47 @@ public class Player : MonoBehaviour
         transform.position = pos;
     }
 
+    void ActivateShield()
+    {
+        shield.SetActive(true);
+    }
+
+    void DeactivateShield()
+    {
+        shield.SetActive(false);
+    }
+
+    bool HasShield()
+    {
+        return shield.activeSelf;
+    }
+
+    void AddPrimaryWeapons()
+    {
+        powerUpPrimaryWeaponLevel++;
+        foreach (PrimaryWeapon weapon in weapons)
+        {
+            if (weapon.powerUpLevelRequirement == powerUpPrimaryWeaponLevel)
+            {
+                weapon.gameObject.SetActive(true);
+            }
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Projectile projectile = collision.GetComponent<Projectile>();
 
         if (projectile != null && projectile.isEnemy)
         {
-            Destroy(gameObject);
+            if (HasShield())
+            {
+                DeactivateShield();
+            }
+            else 
+            {
+                Destroy(gameObject);
+            }
             Destroy(projectile.gameObject);
         }
 
@@ -129,8 +175,29 @@ public class Player : MonoBehaviour
 
         if (destructable != null)
         {
-            Destroy(gameObject);
+            if (HasShield())
+            {
+                DeactivateShield();
+            }
+            else 
+            {
+                Destroy(gameObject);
+            }
             Destroy(destructable.gameObject);
+        }
+
+        PowerUp powerUp = collision.GetComponent<PowerUp>();
+        if (powerUp)
+        {
+            if (powerUp.activateShield)
+            {
+                ActivateShield();
+            }
+            if (powerUp.addPrimaryWeapons)
+            {
+                AddPrimaryWeapons();
+            }
+            Destroy(powerUp.gameObject);
         }
     }
 }
